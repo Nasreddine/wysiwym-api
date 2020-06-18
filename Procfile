@@ -1,0 +1,1 @@
+web: java -jar target/lds-api-0.0.1-SNAPSHOT.jar
