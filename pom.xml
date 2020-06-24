@@ -24,8 +24,6 @@
 			<groupId>sc.research</groupId>
 			<artifactId>ldq</artifactId>
 			<version>0.0.1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/ldq-0.0.1.jar</systemPath>
 		</dependency>
 
 		<dependency>

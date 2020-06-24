@@ -1,10 +1,10 @@
 package sc.dev.lds.ldsapi.model;
 
-public class MeasureRequestResult {
+public class SimilarityResult {
     String name;
     double score;
 
-    public MeasureRequestResult(String name, double score) {
+    public SimilarityResult(String name, double score) {
         this.name = name;
         this.score = score;
     }

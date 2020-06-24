@@ -1,11 +1,12 @@
 package sc.dev.lds.ldsapi.controller;
 
 import lds.engine.LdSimilarityEngine;
+import lds.measures.LdConfFactory;
 import lds.measures.Measure;
-import lds.measures.picss.PICSS;
 import lds.resource.R;
 import org.springframework.web.bind.annotation.*;
-import sc.dev.lds.ldsapi.model.MeasureRequestResult;
+import sc.dev.lds.ldsapi.model.SimilarityMeasureDescription;
+import sc.dev.lds.ldsapi.model.SimilarityResult;
 import sc.dev.lds.ldsapi.utils.Util;
 import sc.research.ldq.LdDataset;
 import slib.utils.i.Conf;
@@ -16,7 +17,15 @@ import java.util.Arrays;
 @RestController
 public class MeasureController {
     @GetMapping(value = "measure/{name}")
-    public MeasureRequestResult MeasureResult(@PathVariable String name) {
+    public SimilarityResult MeasureResult(@PathVariable String name) {
+
+        // TODO: get two compared resources
+
+        // TODO: get config
+
+        // TODO construct and load engine
+
+        // TODO return response
 
         LdDataset dataset = Util.getDBpediaDataset();
 
@@ -47,32 +56,18 @@ public class MeasureController {
         //ends calculation for the chosen similaarity and closes all indexes if created
         engine.close();
 
-        return new MeasureRequestResult("PICSS", score);
+        return new SimilarityResult(name, score);
 
-    }
-
-    @PostMapping(value = "measure/")
-    public Conf setMeasureConfig(@RequestBody MeasureRequestResult measureRequestResult) {
-
-
-        Conf configSim = new Conf();
-
-        LdDataset dataset = Util.getDBpediaDataset();
-        configSim.addParam("LdDatasetMain", dataset);
-
-
-        configSim.addParam("useIndexes", true);
-
-
-        return configSim;
     }
 
     @GetMapping(value = "describe/{name}")
-    public Conf Describe(@PathVariable String name) throws Exception {
+    public SimilarityMeasureDescription Describe(@PathVariable String name) throws Exception {
 
-        Conf config = PICSS.getDefaultConfig();
+        // TODO: if measure does not exist, return error message
+        Conf config = LdConfFactory.createDeafaultConf(Measure.valueOf(name));
+        SimilarityMeasureDescription description = new SimilarityMeasureDescription(name, config);
 
-        return config;
+        return description;
     }
 
 
