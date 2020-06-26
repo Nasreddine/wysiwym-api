@@ -1,7 +1,7 @@
 package sc.dev.lds.ldsapi.controller;
 
 import lds.engine.LdSimilarityEngine;
-import lds.measures.LdConfFactory;
+import lds.conf.LdConfFactory;
 import lds.measures.Measure;
 import lds.resource.R;
 import org.springframework.web.bind.annotation.*;
