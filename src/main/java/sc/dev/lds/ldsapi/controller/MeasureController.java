@@ -17,6 +17,7 @@ import java.util.Arrays;
 
 @RestController
 public class MeasureController {
+
     @GetMapping(value = "measure/{name}/{ressource1}/{ressource2}")
     public SimilarityResult MeasureResult(@PathVariable String name, @PathVariable String ressource1, @PathVariable String ressource2) {
 
@@ -127,7 +128,82 @@ public class MeasureController {
          **/
     }
 
-    @GetMapping(value = "describe/{name}")
+    @PostMapping(value = "post/measure")
+    public SimilarityResult MeasureResultPost( String name,  String ressource1,  String ressource2) {
+
+        System.out.println(ressource1 + " " + ressource2);
+        // TODO: get two compared resources
+
+
+        // TODO: get config
+
+        LdDataset dataset = Util.getDBpediaDataset();
+        Conf config = new Conf();
+        config.addParam("useIndexes", true);
+        config.addParam("LdDatasetMain", dataset);
+        // TODO construct and load engine
+
+        LdSimilarityEngine engine = new LdSimilarityEngine();
+
+        System.out.println(name);
+        switch(name){
+            case "LDSD_d":
+                engine.load(Measure.LDSD_d, config);
+                break;
+            case "LDSD_dw":
+                engine.load(Measure.LDSD_dw, config);
+                break;
+            case "LDSD_i":
+                engine.load(Measure.LDSD_i, config);
+                break;
+            case "LDSD_iw":
+                engine.load(Measure.LDSD_iw, config);
+                break;
+            case "LDSD_cw":
+                engine.load(Measure.LDSD_cw, config);
+                break;
+            case "TLDSD":
+                engine.load(Measure.TLDSD_cw, config);
+                break;
+            case "WLDSD":
+                config.addParam("LdDatasetSpecific", dataset);
+                config.addParam("WeightMethod" , WeightMethod.ITW);
+                engine.load(Measure.WLDSD_cw, config);
+                break;
+            case "Resim":
+                engine.load(Measure.Resim, config);
+                break;
+            case "TResim":
+                engine.load(Measure.TResim, config);
+                break;
+            case "WResim":
+                config.addParam("LdDatasetSpecific", dataset);
+                config.addParam("WeightMethod" , WeightMethod.ITW);
+                engine.load(Measure.WResim, config);
+                break;
+            case "WTResim":
+                config.addParam("LdDatasetSpecific", dataset);
+                config.addParam("WeightMethod" , WeightMethod.ITW);
+                engine.load(Measure.WTResim, config);
+                break;
+            case "PICSS":
+                config.addParam("resourcesCount", 2350906);
+                engine.load(Measure.PICSS, config);
+                break;
+        }
+
+        R r1 = new R("http://dbpedia.org/resource/"+ressource1);
+        R r2 = new R("http://dbpedia.org/resource/"+ressource2);
+
+        double score = engine.similarity(r1,r2);
+
+        engine.close();
+
+        return new SimilarityResult(name, score);
+
+
+    }
+        @GetMapping(value = "describe/{name}")
     public SimilarityMeasureDescription Describe(@PathVariable String name) throws Exception {
 
         // TODO: if measure does not exist, return error message
