@@ -36,7 +36,7 @@ public class MeasureController {
         LdSimilarityEngine engine = new LdSimilarityEngine();
 
         System.out.println(name);
-        switch(name){
+        switch (name) {
             case "LDSD_d":
                 engine.load(Measure.LDSD_d, config);
                 break;
@@ -57,7 +57,7 @@ public class MeasureController {
                 break;
             case "WLDSD":
                 config.addParam("LdDatasetSpecific", dataset);
-                config.addParam("WeightMethod" , WeightMethod.ITW);
+                config.addParam("WeightMethod", WeightMethod.ITW);
                 engine.load(Measure.WLDSD_cw, config);
                 break;
             case "Resim":
@@ -68,12 +68,12 @@ public class MeasureController {
                 break;
             case "WResim":
                 config.addParam("LdDatasetSpecific", dataset);
-                config.addParam("WeightMethod" , WeightMethod.ITW);
+                config.addParam("WeightMethod", WeightMethod.ITW);
                 engine.load(Measure.WResim, config);
                 break;
             case "WTResim":
                 config.addParam("LdDatasetSpecific", dataset);
-                config.addParam("WeightMethod" , WeightMethod.ITW);
+                config.addParam("WeightMethod", WeightMethod.ITW);
                 engine.load(Measure.WTResim, config);
                 break;
             case "PICSS":
@@ -82,10 +82,10 @@ public class MeasureController {
                 break;
         }
 
-        R r1 = new R("http://dbpedia.org/resource/"+ressource1);
-        R r2 = new R("http://dbpedia.org/resource/"+ressource2);
+        R r1 = new R("http://dbpedia.org/resource/" + ressource1);
+        R r2 = new R("http://dbpedia.org/resource/" + ressource2);
 
-        double score = engine.similarity(r1,r2);
+        double score = engine.similarity(r1, r2);
 
         engine.close();
 
@@ -94,44 +94,49 @@ public class MeasureController {
 
         // TODO return response
         /**
-        LdDataset dataset = Util.getDBpediaDataset();
+         LdDataset dataset = Util.getDBpediaDataset();
 
-        Conf config = new Conf();
-        //using indexes for calculation, change to false of no data indexing is wanted
-        config.addParam("useIndexes", true);
+         Conf config = new Conf();
+         //using indexes for calculation, change to false of no data indexing is wanted
+         config.addParam("useIndexes", true);
 
-        //specifying the main dataset that will be used for querying, in our case DBpedia
-        config.addParam("LdDatasetMain", dataset);
+         //specifying the main dataset that will be used for querying, in our case DBpedia
+         config.addParam("LdDatasetMain", dataset);
 
-        //specifiying the number of resources -only resources and not literals- found in the dataset to be used in calculation
-        config.addParam("resourcesCount", 2350906);
+         //specifiying the number of resources -only resources and not literals- found in the dataset to be used in calculation
+         config.addParam("resourcesCount", 2350906);
 
-        R r1 = new R("http://dbpedia.org/resource/The_Noah");
-        R r2 = new R("http://dbpedia.org/resource/The_Pack_(2010_film)");
-
-
-
-        //Initialzie the engine class object
-        LdSimilarityEngine engine = new LdSimilarityEngine();
-
-        //creates a new similarity class object and passes the config that contains necessary parameters to it, also loads needed indexes if necessary
-        //PICSS similarity calculaton
-        engine.load(lds.measures.Measure.PICSS, config);
+         R r1 = new R("http://dbpedia.org/resource/The_Noah");
+         R r2 = new R("http://dbpedia.org/resource/The_Pack_(2010_film)");
 
 
-        double score = engine.similarity(r1, r2);
 
-        //ends calculation for the chosen similaarity and closes all indexes if created
-        engine.close();
+         //Initialzie the engine class object
+         LdSimilarityEngine engine = new LdSimilarityEngine();
 
-        return new SimilarityResult(name, score);
+         //creates a new similarity class object and passes the config that contains necessary parameters to it, also loads needed indexes if necessary
+         //PICSS similarity calculaton
+         engine.load(lds.measures.Measure.PICSS, config);
+
+
+         double score = engine.similarity(r1, r2);
+
+         //ends calculation for the chosen similaarity and closes all indexes if created
+         engine.close();
+
+         return new SimilarityResult(name, score);
          **/
     }
 
-    @PostMapping(value = "post/measure")
-    public SimilarityResult MeasureResultPost( String name,  String ressource1,  String ressource2) {
+    @GetMapping(value = "check")
+    public String MeasureResulM() {
+        return "ok";
+    }
 
-        System.out.println(ressource1 + " " + ressource2);
+    @GetMapping(value = "similarity")
+    public SimilarityResult MeasureResultPost(String name, String r1, String r2) {
+
+        System.out.println(r1 + " " + r2);
         // TODO: get two compared resources
 
 
@@ -146,7 +151,7 @@ public class MeasureController {
         LdSimilarityEngine engine = new LdSimilarityEngine();
 
         System.out.println(name);
-        switch(name){
+        switch (name) {
             case "LDSD_d":
                 engine.load(Measure.LDSD_d, config);
                 break;
@@ -167,7 +172,7 @@ public class MeasureController {
                 break;
             case "WLDSD":
                 config.addParam("LdDatasetSpecific", dataset);
-                config.addParam("WeightMethod" , WeightMethod.ITW);
+                config.addParam("WeightMethod", WeightMethod.ITW);
                 engine.load(Measure.WLDSD_cw, config);
                 break;
             case "Resim":
@@ -178,12 +183,12 @@ public class MeasureController {
                 break;
             case "WResim":
                 config.addParam("LdDatasetSpecific", dataset);
-                config.addParam("WeightMethod" , WeightMethod.ITW);
+                config.addParam("WeightMethod", WeightMethod.ITW);
                 engine.load(Measure.WResim, config);
                 break;
             case "WTResim":
                 config.addParam("LdDatasetSpecific", dataset);
-                config.addParam("WeightMethod" , WeightMethod.ITW);
+                config.addParam("WeightMethod", WeightMethod.ITW);
                 engine.load(Measure.WTResim, config);
                 break;
             case "PICSS":
@@ -192,10 +197,10 @@ public class MeasureController {
                 break;
         }
 
-        R r1 = new R("http://dbpedia.org/resource/"+ressource1);
-        R r2 = new R("http://dbpedia.org/resource/"+ressource2);
+        R r1_ = new R("http://dbpedia.org/resource/" + r1);
+        R r2_ = new R("http://dbpedia.org/resource/" + r2);
 
-        double score = engine.similarity(r1,r2);
+        double score = engine.similarity(r1_, r2_);
 
         engine.close();
 
@@ -203,7 +208,8 @@ public class MeasureController {
 
 
     }
-        @GetMapping(value = "describe/{name}")
+
+    @GetMapping(value = "describe/{name}")
     public SimilarityMeasureDescription Describe(@PathVariable String name) throws Exception {
 
         // TODO: if measure does not exist, return error message
