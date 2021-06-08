@@ -20,18 +20,18 @@
 
 	<dependencies>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>sc.research</groupId>
 			<artifactId>ldq</artifactId>
 			<version>0.0.1</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>sc.research</groupId>
 			<artifactId>lds</artifactId>
 			<version>0.0.1</version>
-<!--			<scope>system</scope>-->
-<!--			<systemPath>${project.basedir}/lib/lds-0.0.1.jar</systemPath>-->
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/lds-0.0.1.jar</systemPath>
 		</dependency>
 
 
